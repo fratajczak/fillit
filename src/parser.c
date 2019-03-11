@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/03/11 17:17:00 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:24:59 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,6 @@ int piece_ok(char *buf)
 		i++;
 	}
 	return (connections == 6 || connections == 8);
-}
-void	print_bits(u_int64_t nb)
-{
-	u_int64_t bit;
-	int      pos;
-
-	bit = 9223372036854775808ULL;
-	pos = 1;
-	while (bit > 0)
-	{
-		if (bit & nb)
-			ft_putchar('1');
-		else
-			ft_putchar('0');
-		if (pos % 16 == 0)
-			ft_putchar('\n');
-		bit >>= 1;
-		pos++;
-	}
-	ft_putchar('\n');
 }
 
 void get_info(t_tetris *pieces)
