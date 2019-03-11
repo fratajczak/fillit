@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/03/10 19:15:25 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:38:23 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int piece_ok(char *buf)
 void get_info(t_tetris *pieces)
 {
 	int bit_pos;
+	u_int16_t tmp;
 
 	bit_pos = 0;
 	pieces->width = 0;
@@ -102,6 +103,12 @@ void get_info(t_tetris *pieces)
 	(pieces->height)++;
 	pieces->x = 0;
 	pieces->y = 0;
+	tmp = pieces->value.t16.p0;
+	pieces->value.t16.p0 = pieces->value.t16.p3;
+	pieces->value.t16.p3 = tmp;
+	tmp = pieces->value.t16.p1;
+	pieces->value.t16.p1 = pieces->value.t16.p2;
+	pieces->value.t16.p2 = tmp;
 }
 
 void	store_buf(char *buf, t_tetris *pieces)

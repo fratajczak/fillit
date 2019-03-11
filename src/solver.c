@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 21:52:52 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/10 18:06:28 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 16:41:15 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,12 @@
 
 int		check_piece(u_int16_t *square, t_tetris piece)
 {
-	piece.value.t64 >>= piece.x;
-	square += piece.y;
-	return (((square[0] & (piece.value.t16.p0)) +
-		 (square[1] & piece.value.t16.p1) +
-		 (square[2] & piece.value.t16.p2) +
-		 (square[3] & piece.value.t16.p3)) == 0);
+	return (!(*(u_int64_t *)(square+ piece.y) & (piece.value.t64 >> piece.x)));
 }
 
 void	toggle_piece(u_int16_t *square, t_tetris piece)
 {
-	piece.value.t64 >>= piece.x;
-	square += piece.y;
-	square[0] ^= piece.value.t16.p0;
-	square[1] ^= piece.value.t16.p1;
-	square[2] ^= piece.value.t16.p2;
-	square[3] ^= piece.value.t16.p3;
+		*(u_int64_t *)(square + piece.y) ^= piece.value.t64 >> piece.x;
 }
 
 int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
