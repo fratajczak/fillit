@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 21:52:52 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/11 16:41:15 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:18:21 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ void	solve(t_tetris *pieces, int nb_pieces)
 		ft_bzero(square, 16 * sizeof(u_int16_t));
 	}
 	if (size != 17)
+	{
 		print_sol(pieces, size);
+	}
 	else
 		ft_putendl("error");
 }

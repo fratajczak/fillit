@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:01:23 by exam              #+#    #+#             */
-/*   Updated: 2019/03/10 19:15:28 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:16:30 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ int main(int argc, char *argv[])
 	nb_pieces = 0;
 	while (pieces[nb_pieces].value.t64)
 		nb_pieces++;
+	reverse_pieces_bytes(pieces);
 	solve(pieces, nb_pieces);
 }

@@ -6,11 +6,12 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/03/11 16:38:23 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:17:00 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include "libft.h"
 #include "utils.h"
 
 int get_line_len(char *str)
@@ -77,11 +78,30 @@ int piece_ok(char *buf)
 	}
 	return (connections == 6 || connections == 8);
 }
+void	print_bits(u_int64_t nb)
+{
+	u_int64_t bit;
+	int      pos;
+
+	bit = 9223372036854775808ULL;
+	pos = 1;
+	while (bit > 0)
+	{
+		if (bit & nb)
+			ft_putchar('1');
+		else
+			ft_putchar('0');
+		if (pos % 16 == 0)
+			ft_putchar('\n');
+		bit >>= 1;
+		pos++;
+	}
+	ft_putchar('\n');
+}
 
 void get_info(t_tetris *pieces)
 {
 	int bit_pos;
-	u_int16_t tmp;
 
 	bit_pos = 0;
 	pieces->width = 0;
@@ -103,12 +123,6 @@ void get_info(t_tetris *pieces)
 	(pieces->height)++;
 	pieces->x = 0;
 	pieces->y = 0;
-	tmp = pieces->value.t16.p0;
-	pieces->value.t16.p0 = pieces->value.t16.p3;
-	pieces->value.t16.p3 = tmp;
-	tmp = pieces->value.t16.p1;
-	pieces->value.t16.p1 = pieces->value.t16.p2;
-	pieces->value.t16.p2 = tmp;
 }
 
 void	store_buf(char *buf, t_tetris *pieces)
