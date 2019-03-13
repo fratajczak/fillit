@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 22:51:28 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/11 17:50:54 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/11 17:18:33 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <sys/types.h>
 
 #include <stdio.h>
-
 void set_bit(u_int64_t *nb, int bit_pos)
 {
 	*nb |= BIT >> bit_pos;
@@ -82,32 +81,22 @@ void print_sol(t_tetris *pieces, int size)
 		ft_putendl(tab[i]);
 }
 
-int get_next_offsets(char *buf)
+int get_next_offset(char *buf)
 {
 	int offset;
-	int offset2;
 
 	offset = 0;
-	offset2 = 0;
 	while (*buf && *buf != '\n')
 		buf++;
 	buf++;
-	if (!*buf)
+	if (!buf)
 		return (5);
 	while (*buf != '\n' && *buf != '#')
 	{
 		offset++;
 		buf++;
 	}
-	buf++;
-	if (!*buf)
-		return (5);
-	while (*buf != '\n' && *buf != '#')
-	{
-		offset2++;
-		buf++;
-	}
-	return (MIN(offset, offset2));
+	return (offset);
 }
 
 int get_offset(char **buf)
@@ -123,7 +112,7 @@ int get_offset(char **buf)
 		if (**buf == '\n')
 			offset = -1;
 	}
-	if ((next_offset = get_next_offsets(*buf)) < offset)
+	if ((next_offset = get_next_offset(*buf)) < offset)
 	{
 		*buf -= offset - next_offset;
 		offset = next_offset;
