@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 22:58:25 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/11 17:15:37 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:22:49 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 /*BIT = 0b1000000000000000000000000000000000000000000000000000000000000000*/
 #define BIT 9223372036854775808ULL
 #define VAL(nb, bit_pos) ((nb & (BIT >> bit_pos)) != 0)
+#define MIN(a, b) (a < b ? a : b)
 
 void set_bit(u_int64_t *nb, int pos);
 void	print_sol(t_tetris *pieces, int size);

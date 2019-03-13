@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 22:51:28 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/11 17:18:33 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/03/13 16:34:33 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,20 +83,18 @@ void print_sol(t_tetris *pieces, int size)
 
 int get_next_offset(char *buf)
 {
-	int offset;
+	char *line_start;
+	char *first_block;
+	int   offset;
 
-	offset = 0;
-	while (*buf && *buf != '\n')
-		buf++;
-	buf++;
-	if (!buf)
+	line_start = ft_strchr(buf, '\n') + 1;
+	if (!(first_block = ft_strchr(line_start, '#')))
 		return (5);
-	while (*buf != '\n' && *buf != '#')
-	{
-		offset++;
-		buf++;
-	}
-	return (offset);
+	offset = first_block - line_start;
+	line_start = ft_strchr(first_block, '\n') + 1;
+	if (!(first_block = ft_strchr(line_start, '#')))
+		return (offset);
+	return (MIN((first_block - line_start), offset));
 }
 
 int get_offset(char **buf)
