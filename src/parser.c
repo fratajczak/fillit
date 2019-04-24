@@ -6,13 +6,14 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/04/24 18:21:47 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:30:20 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "libft.h"
 #include "utils.h"
+#include "utils2.h"
 
 #include <stdio.h>
 
@@ -90,7 +91,7 @@ void	get_info(t_tetris *pieces)
 	pieces->height = 0;
 	while (bit_pos <= 51)
 	{
-		if (VAL(pieces->value.t64, bit_pos) == 1)
+		if (val(pieces->value.t64, bit_pos) == 1)
 		{
 			if (bit_pos % 16 > pieces->width)
 				pieces->width = bit_pos % 16;

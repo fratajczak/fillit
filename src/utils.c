@@ -6,10 +6,11 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 22:51:28 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/04/24 18:24:22 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:25:43 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "fillit.h"
 #include "libft.h"
 #include <stdlib.h>
