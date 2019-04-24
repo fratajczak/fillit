@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/04/01 18:09:32 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 17:42:35 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int get_line_len(char *str)
 	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] != '.' && str[i] != '#')
-		{
-			printf("%c", str[i]);
 			return (-1);
-			}
 		++i;
 	}
 	return (i);
