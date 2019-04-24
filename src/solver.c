@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 21:52:52 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/04/01 18:38:20 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:10:51 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 #include "utils.h"
 #include <sys/types.h>
 
-
-#include "stdio.h"
-
 int		check_piece(u_int16_t *square, t_tetris piece)
 {
-	return (!(*(u_int64_t *)(square+ piece.y) & (piece.value.t64 >> piece.x)));
+	return (!(*(u_int64_t *)(square + piece.y) & (piece.value.t64 >> piece.x)));
 }
 
 void	toggle_piece(u_int16_t *square, t_tetris piece)
 {
-		*(u_int64_t *)(square + piece.y) ^= piece.value.t64 >> piece.x;
+	*(u_int64_t *)(square + piece.y) ^= piece.value.t64 >> piece.x;
 }
 
 int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
@@ -34,12 +31,12 @@ int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
 		return (1);
 	if ((pieces - 1)->value.t64 == pieces->value.t64)
 	{
-		pieces->x = pieces->x <= size - pieces->width ? (pieces-1)->x + 1 : 0;
-		pieces->y = pieces->x == 0 ? (pieces-1)->y + 1 : (pieces-1)->y;
+		pieces->x = pieces->x <= size - pieces->width ? (pieces - 1)->x + 1 : 0;
+		pieces->y = pieces->x == 0 ? (pieces - 1)->y + 1 : (pieces - 1)->y;
 	}
-	while(pieces->y <= size - pieces->height)
+	while (pieces->y <= size - pieces->height)
 	{
-		while(pieces->x <= size - pieces->width)
+		while (pieces->x <= size - pieces->width)
 		{
 			if (check_piece(square, *pieces))
 			{
@@ -53,19 +50,18 @@ int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
 		++(pieces->y);
 		pieces->x = 0;
 	}
-	pieces->x = 0;
 	pieces->y = 0;
 	return (0);
 }
 
 void	solve(t_tetris *pieces, int nb_pieces)
 {
-	u_int16_t square[16];
-	int       size;
+	u_int16_t	square[16];
+	int			size;
 
 	size = 0;
 	ft_bzero(square, 16 * sizeof(u_int16_t));
-	while(size * size < 4 * nb_pieces)
+	while (size * size < 4 * nb_pieces)
 		++size;
 	while (!solve_size(square, pieces, size) && size <= 16)
 	{

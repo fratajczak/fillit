@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/04/24 17:54:14 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:47 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 
-int get_line_len(char *str)
+int		get_line_len(char *str)
 {
 	int i;
 
@@ -30,7 +30,7 @@ int get_line_len(char *str)
 	return (i);
 }
 
-int lines_ok(char *str, int nb_read)
+int		lines_ok(char *str, int nb_read)
 {
 	int i;
 	int nb_lines;
@@ -55,7 +55,7 @@ int lines_ok(char *str, int nb_read)
 	return (nb_lines == 4);
 }
 
-int piece_ok(char *buf)
+int		piece_ok(char *buf)
 {
 	int i;
 	int connections;
@@ -71,17 +71,17 @@ int piece_ok(char *buf)
 		if (buf[i] == '#')
 		{
 			block_count++;
-			connections += (i > 0 && buf[i - 1] == '#') +
-				       (i > 4 && buf[i - 5] == '#') +
-				       (i < 18 && buf[i + 1] == '#') +
-				       (i < 14 && buf[i + 5] == '#');
+			connections += (i > 0 && buf[i - 1] == '#')
+				+ (i > 4 && buf[i - 5] == '#')
+				+ (i < 18 && buf[i + 1] == '#')
+				+ (i < 14 && buf[i + 5] == '#');
 		}
 		++i;
 	}
 	return ((block_count == 4) && (connections == 6 || connections == 8));
 }
 
-void get_info(t_tetris *pieces)
+void	get_info(t_tetris *pieces)
 {
 	int bit_pos;
 
@@ -90,14 +90,14 @@ void get_info(t_tetris *pieces)
 	pieces->height = 0;
 	while (bit_pos <= 51)
 	{
-		if(VAL(pieces->value.t64, bit_pos) == 1)
+		if (VAL(pieces->value.t64, bit_pos) == 1)
 		{
 			if (bit_pos % 16 > pieces->width)
 				pieces->width = bit_pos % 16;
-			if(bit_pos / 16 > pieces->height)
+			if (bit_pos / 16 > pieces->height)
 				pieces->height = bit_pos / 16;
 		}
-		if(bit_pos % 16 == 3)
+		if (bit_pos % 16 == 3)
 			bit_pos += 16 - (bit_pos % 16) - 1;
 		++bit_pos;
 	}
@@ -109,9 +109,9 @@ void get_info(t_tetris *pieces)
 
 void	store_buf(char *buf, t_tetris *pieces)
 {
-	unsigned long long piece;
-	int       bit_pos;
-	int		   offset;
+	unsigned long long	piece;
+	int					bit_pos;
+	int					offset;
 
 	piece = 0;
 	offset = get_offset(&buf);

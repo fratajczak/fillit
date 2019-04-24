@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:01:23 by exam              #+#    #+#             */
-/*   Updated: 2019/04/01 15:30:10 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:21:31 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
-#include <stdio.h>
-
-t_tetris *exit_read(void *ptr)
+t_tetris	*exit_read(void *ptr)
 {
 	free(ptr);
 	return (NULL);
 }
 
-t_tetris *read_file(fd)
+t_tetris	*read_file(int fd)
 {
-	int       piece_index;
-	int       nb_read;
-	char      buf[BUF_SIZE + 1];
-	t_tetris *pieces;
+	int			piece_index;
+	int			nb_read;
+	char		buf[BUF_SIZE + 1];
+	t_tetris	*pieces;
 
 	piece_index = 0;
 	if (!(pieces = (t_tetris *)malloc(27 * sizeof(t_tetris))))
@@ -57,10 +55,10 @@ t_tetris *read_file(fd)
 	return (pieces);
 }
 
-int main(int argc, char *argv[])
+int			main(int argc, char *argv[])
 {
-	t_tetris *pieces;
-	int       nb_pieces;
+	t_tetris	*pieces;
+	int			nb_pieces;
 
 	if (argc != 2 || !(pieces = read_file(open(argv[1], O_RDONLY))))
 	{

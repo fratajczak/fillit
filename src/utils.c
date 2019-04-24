@@ -6,26 +6,24 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 22:51:28 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/13 16:34:33 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/24 18:24:22 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
 #include "fillit.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <sys/types.h>
 
-#include <stdio.h>
-void set_bit(u_int64_t *nb, int bit_pos)
+void	set_bit(u_int64_t *nb, int bit_pos)
 {
 	*nb |= BIT >> bit_pos;
 }
 
-void copy_t16_to_str(u_int16_t nb, char *str, char c)
+void	copy_t16_to_str(u_int16_t nb, char *str, char c)
 {
-	u_int16_t bit;
-	int       i;
+	u_int16_t	bit;
+	int			i;
 
 	bit = 32768;
 	i = 0;
@@ -41,7 +39,8 @@ void copy_t16_to_str(u_int16_t nb, char *str, char c)
 void	reverse_pieces_bytes(t_tetris *pieces)
 {
 	u_int16_t tmp;
-	while(pieces->value.t64)
+
+	while (pieces->value.t64)
 	{
 		tmp = pieces->value.t16.p0;
 		pieces->value.t16.p0 = pieces->value.t16.p3;
@@ -53,11 +52,11 @@ void	reverse_pieces_bytes(t_tetris *pieces)
 	}
 }
 
-void print_sol(t_tetris *pieces, int size)
+void	print_sol(t_tetris *pieces, int size)
 {
-	char c;
-	char tab[16][17];
-	int  i;
+	char	c;
+	char	tab[16][17];
+	int		i;
 
 	c = 'A';
 	i = -1;
@@ -71,49 +70,12 @@ void print_sol(t_tetris *pieces, int size)
 	{
 		pieces[i].value.t64 >>= pieces[i].x;
 		copy_t16_to_str(pieces[i].value.t16.p3, tab[pieces[i].y], c);
-		copy_t16_to_str(pieces[i].value.t16.p2, tab[1 + pieces[i].y],c);
-		copy_t16_to_str(pieces[i].value.t16.p1, tab[2 + pieces[i].y],c);
-		copy_t16_to_str(pieces[i].value.t16.p0, tab[3 + pieces[i].y],c);
+		copy_t16_to_str(pieces[i].value.t16.p2, tab[1 + pieces[i].y], c);
+		copy_t16_to_str(pieces[i].value.t16.p1, tab[2 + pieces[i].y], c);
+		copy_t16_to_str(pieces[i].value.t16.p0, tab[3 + pieces[i].y], c);
 		c++;
 	}
 	i = -1;
 	while (++i < size)
 		ft_putendl(tab[i]);
-}
-
-int get_next_offset(char *buf)
-{
-	char *line_start;
-	char *first_block;
-	int   offset;
-
-	line_start = ft_strchr(buf, '\n') + 1;
-	if (!(first_block = ft_strchr(line_start, '#')))
-		return (5);
-	offset = first_block - line_start;
-	line_start = ft_strchr(first_block, '\n') + 1;
-	if (!(first_block = ft_strchr(line_start, '#')))
-		return (offset);
-	return (MIN((first_block - line_start), offset));
-}
-
-int get_offset(char **buf)
-{
-	int offset;
-	int next_offset;
-
-	offset = 0;
-	while (**buf != '#')
-	{
-		offset++;
-		(*buf)++;
-		if (**buf == '\n')
-			offset = -1;
-	}
-	if ((next_offset = get_next_offset(*buf)) < offset)
-	{
-		*buf -= offset - next_offset;
-		offset = next_offset;
-	}
-	return (offset);
 }
