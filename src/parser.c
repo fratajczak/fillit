@@ -6,13 +6,15 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 15:18:16 by exam              #+#    #+#             */
-/*   Updated: 2019/03/11 17:24:59 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/01 18:09:32 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include "libft.h"
 #include "utils.h"
+
+#include <stdio.h>
 
 int get_line_len(char *str)
 {
@@ -22,8 +24,11 @@ int get_line_len(char *str)
 	while (str[i] && str[i] != '\n')
 	{
 		if (str[i] != '.' && str[i] != '#')
+		{
+			printf("%c", str[i]);
 			return (-1);
-		i++;
+			}
+		++i;
 	}
 	return (i);
 }
@@ -38,7 +43,7 @@ int lines_ok(char *str, int nb_read)
 	nb_lines = 0;
 	while (str[i])
 	{
-		nb_lines++;
+		++nb_lines;
 		line_len = get_line_len(str + i);
 		if (line_len != 4)
 		{
@@ -63,7 +68,7 @@ int piece_ok(char *buf)
 	connections = 0;
 	block_count = 0;
 	while (buf[i] != '#' && buf[i])
-		i++;
+		++i;
 	while (buf[i])
 	{
 		if (buf[i] == '#')
@@ -74,7 +79,7 @@ int piece_ok(char *buf)
 				       (i < 18 && buf[i + 1] == '#') +
 				       (i < 14 && buf[i + 5] == '#');
 		}
-		i++;
+		++i;
 	}
 	return (connections == 6 || connections == 8);
 }
@@ -97,10 +102,10 @@ void get_info(t_tetris *pieces)
 		}
 		if(bit_pos % 16 == 3)
 			bit_pos += 16 - (bit_pos % 16) - 1;
-		bit_pos++;
+		++bit_pos;
 	}
-	(pieces->width)++;
-	(pieces->height)++;
+	++(pieces->width);
+	++(pieces->height);
 	pieces->x = 0;
 	pieces->y = 0;
 }
@@ -120,8 +125,8 @@ void	store_buf(char *buf, t_tetris *pieces)
 			set_bit(&piece, bit_pos);
 		else if (*buf == '\n')
 			bit_pos += 16 - (bit_pos % 16) - 1 - offset;
-		buf++;
-		bit_pos++;
+		++buf;
+		++bit_pos;
 	}
 	pieces->value.t64 = piece;
 	get_info(pieces);

@@ -6,7 +6,7 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 21:52:52 by fratajcz          #+#    #+#             */
-/*   Updated: 2019/03/11 17:18:21 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/01 18:38:20 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
 {
 	if (pieces->value.t64 == 0)
 		return (1);
+	if ((pieces - 1)->value.t64 == pieces->value.t64)
+	{
+		pieces->x = pieces->x <= size - pieces->width ? (pieces-1)->x + 1 : 0;
+		pieces->y = pieces->x == 0 ? (pieces-1)->y + 1 : (pieces-1)->y;
+	}
 	while(pieces->y <= size - pieces->height)
 	{
 		while(pieces->x <= size - pieces->width)
@@ -43,9 +48,9 @@ int		solve_size(u_int16_t *square, t_tetris *pieces, int size)
 					return (1);
 				toggle_piece(square, *pieces);
 			}
-			pieces->x++;
+			++(pieces->x);
 		}
-		pieces->y++;
+		++(pieces->y);
 		pieces->x = 0;
 	}
 	pieces->x = 0;
@@ -61,10 +66,10 @@ void	solve(t_tetris *pieces, int nb_pieces)
 	size = 0;
 	ft_bzero(square, 16 * sizeof(u_int16_t));
 	while(size * size < 4 * nb_pieces)
-		size++;
+		++size;
 	while (!solve_size(square, pieces, size) && size <= 16)
 	{
-		size++;
+		++size;
 		ft_bzero(square, 16 * sizeof(u_int16_t));
 	}
 	if (size != 17)

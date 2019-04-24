@@ -9,7 +9,7 @@ $(NAME): $(OBJECTS)
 	gcc $(OBJECTS) lib/libft.a -o fillit
 
 $(OBJECTS): $(SOURCES)
-	gcc -Wall -Wextra -Werror -g -c $(SOURCES) -I include/
+	gcc -Wall -Wextra -Werror -c -O2 $(SOURCES) -I include/
 
 clean:
 	rm -f *.o
