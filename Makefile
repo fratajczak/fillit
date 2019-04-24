@@ -1,4 +1,4 @@
-SOURCES= src/read.c src/parser.c src/utils.c src/solver.c
+SOURCES= src/read.c src/parser.c src/utils.c src/solver.c src/utils2.c
 OBJECTS= $(addsuffix .o, $(notdir $(basename $(SOURCES))))
 NAME= fillit
 
