@@ -6,23 +6,49 @@
 /*   By: fratajcz <fratajcz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 23:41:46 by ferdinand         #+#    #+#             */
-/*   Updated: 2019/03/06 03:13:22 by fratajcz         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:24:13 by fratajcz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
+# define LIBFT_H
 
-#include <string.h>
-#define ABS(x) (x < 0 ? -x : x)
+# include <string.h>
+
+# define ABS(Value) (Value < 0 ? -Value : Value)
+
+typedef struct	s_win
+{
+	void *win_ptr;
+	void *mlx_ptr;
+}				t_win;
+
+typedef struct	s_point
+{
+	float x;
+	float y;
+}				t_point;
 
 typedef struct	s_list
 {
-	void			*data;
+	void			*content;
+	size_t			content_size;
 	struct s_list	*next;
 }				t_list;
 
-char			*ft_strrev(char *str);
+typedef struct	s_ht_item
+{
+	char	*key;
+	char	*value;
+}				t_ht_item;
+
+typedef struct	s_hash_table
+{
+	size_t		size;
+	int			count;
+	t_ht_item	**items;
+}				t_hash_table;
+
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
@@ -40,7 +66,7 @@ size_t			ft_strlcat(char *dest, const char *src, size_t n);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 char			*ft_strstr(const char *s1, const char *s2);
-char			*ft_strnstr(char *s1, const char *s2, size_t n);
+char			*ft_strnstr(const char *s1, const char *s2, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 int				ft_atoi(const char *str);
@@ -75,23 +101,40 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char const *s, int fd);
 void			ft_putendl_fd(char const *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
-t_list			*ft_lstnew(void *data);
-void			ft_lstdelone(t_list **alst, void (*del)(void *));
-void			ft_lstdel(t_list **alst, void (*del)(void *));
+
+t_list			*ft_lstnew(void const *content, size_t content_size);
+void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
+void			ft_lstadd(t_list **ast, t_list *new);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void			ft_swap(char **a, char **b);
-char *			  ft_strndup(const char *s, size_t n);
-char **			  ft_strsplitstr(const char *s, const char *sep);
-void			ft_putstrtab(char **tab, const char *sep);
-void			ft_putinttab(int *tab, unsigned int len, const char *sep);
-int				ft_atoi_base(const char *str, const char *base);
-char			*ft_itoa_base(int n, const char *base);
-char			*ft_straddc(char *s, char c, char lr);
-int				ft_gnl(int fd, char **line);
-size_t			ft_strtablen(char **s);
-int				ft_printf(char *form, ...);
-long			ft_atoli(const char *str);
-int				ft_strisnum(char *s);
+
+long			ft_strtol(const char *str);
+char			*ft_strrev(char *str);
+int				ft_isspace(int c);
+char			*ft_strndup(const char *s1, size_t n);
+size_t			ft_strnlen(const char *s, size_t maxlen);
+
+void			ft_lstrev(t_list **begin_list);
+t_list			*ft_lstfind(t_list *begin_list, void *data_ref, int (*cmp)());
+
+t_hash_table	*ht_new(size_t size);
+t_ht_item		*ht_new_item(const char *key, const char *value);
+void			ht_del_item(t_ht_item *item);
+void			ht_del_hash_table(t_hash_table *ht);
+int				ht_hash(const char *str, const int p, const int m);
+
+long			ft_lpow(long nb, long power);
+int				ft_is_prime(int nb);
+int				ft_find_next_prime(int nb);
+float			rfpart(float x);
+float			fpart(float x);
+int				ipart(float x);
+void			swap(float *a, float *b);
+
+int				br_adjust(int rgb_int, float brightness);
+int				rgb(int red, int green, int blue);
+void			draw_line(t_win win, t_point l0, t_point l1, int color);
+t_point			point(float x, float y);
 
 #endif
