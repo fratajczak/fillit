@@ -2,6 +2,7 @@ NAME = fillit
 
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
+INC_PATH = ./include/
 
 CPPFLAGS = -I./include/
 
